@@ -24,6 +24,7 @@ node {
                   //sh 'python --version' 
                   //sh 'pip --version'
                   //sh 'pip install -r requirements.txt'
+                  sh 'python3 -m pip install flask'
                   sh 'flask --app app run'  
         }
 
