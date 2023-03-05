@@ -3,16 +3,16 @@ pipeline {
     
    stages { 
         stage('Checkout') {
-            
+           steps { 
                 checkout([$class: 'GitSCM',
                           branches: [[name: 'main']],
                           userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
-        
+         }
         }
         
       
         stage('Create Staging Branch') {
-                
+                steps { 
                     sh 'git checkout staging'
 
                     withCredentials([usernamePassword(credentialsId: '6cbe87ef-1f79-4211-ba7d-5cfdfdedcf54', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
@@ -21,22 +21,24 @@ pipeline {
                    //  sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
                        
                    }
+                   } 
          }
 
          stage('Test application') {
-               
+               steps { 
                   sh 'python3 --version' 
                   //sh 'pip --version'
                   sh 'pip3 install -r requirements.txt'
                  // sh 'python3 -m pip install flask'
                   sh 'flask --app app run &'  
-        }
-        
+              }
+         }
 
 
 
         stage('Build and push Docker Image'){
 
+      steps { 
           def  app= docker.build("asmagr/tp-python:${env.BUILD_NUMBER}")
          
           docker.withRegistry('', 'dockerhubtp') {
@@ -45,6 +47,7 @@ pipeline {
            }
             echo "image built successfully"
         }
+        }  
     } 
     
 }
