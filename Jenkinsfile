@@ -8,6 +8,8 @@ node {
                           userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
         
         }
+        
+       stages { 
         stage('Create Staging Branch') {
                 
                     sh 'git checkout staging'
@@ -26,8 +28,11 @@ node {
                   //sh 'pip --version'
                   sh 'pip3 install -r requirements.txt'
                  // sh 'python3 -m pip install flask'
-                  sh 'flask --app app run'  
+                  sh 'flask --app app run &'  
         }
+         }
+
+
 
         stage('Build and push Docker Image'){
 
