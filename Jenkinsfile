@@ -38,7 +38,9 @@ pipeline {
          }
 
        stage('Clone Repo') {
-            checkout scm
+         steps { 
+            sh 'checkout scm'
+            } 
           } 
 
         stage('docker login') {
