@@ -24,7 +24,7 @@ pipeline {
         steps { 
           script{ 
             
-            docker.withRegistry('', 'dockerhubtp') {
+            docker.withRegistry('', '05e7f4ce-d0a6-44ac-a080-be3aba651c29') {
             def customImage = docker.build("asmagr/tp-python:${env.BUILD_ID}")
             customImage.push()
            }
