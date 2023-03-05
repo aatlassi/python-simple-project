@@ -23,6 +23,8 @@ node {
                
                   //sh 'python --version' 
                   //sh 'pip --version'
+                  sh ' git clone https://github.com/aatlassi/tp.git'
+                  sh 'cd tp'
                   sh 'pip3 install -r requirements.txt'
                  // sh 'python3 -m pip install flask'
                   sh 'flask --app app run'  
