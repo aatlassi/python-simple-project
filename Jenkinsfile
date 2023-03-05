@@ -4,23 +4,18 @@ node {
         stage('Checkout') {
             
                 checkout([$class: 'GitSCM',
-                          branches: [[name: 'main']],
+                          branches: [[name: 'staging']],
                           userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
         
         }
         stage('Create Staging Branch') {
-                if (sh 'git ls-remote origin staging'){
+                
             
                     withCredentials([usernamePassword(credentialsId: '1a09e653-fe21-4449-a642-4f31aed8638d', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 
                      sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
-                      }
-
-                }else {
-                    sh 'git checkout -b staging'
-                    withCredentials([usernamePassword(credentialsId: '1a09e653-fe21-4449-a642-4f31aed8638d', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
-                    }
+                    
+                   
                 }
          }
 
