@@ -12,8 +12,16 @@ pipeline {
            steps { 
                 checkout([$class: 'GitSCM',
                           branches: [[name: 'main']],
-                          userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
+                          userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])                
          }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
+                }
+            }
         }
         
       
