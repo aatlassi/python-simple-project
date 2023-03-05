@@ -14,7 +14,7 @@ node {
 
                     withCredentials([usernamePassword(credentialsId: '1a09e653-fe21-4449-a642-4f31aed8638d', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 
-                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git HEAD:staging')
+                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
                        
                 }
          }
