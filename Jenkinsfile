@@ -5,7 +5,7 @@ node {
             
                 checkout([$class: 'GitSCM',
                           branches: [[name: 'main']],
-                          userRemoteConfigs: [[url: 'https://github.com/username/repo.git']]])
+                          userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
         
         }
         stage('Create Staging Branch') {
