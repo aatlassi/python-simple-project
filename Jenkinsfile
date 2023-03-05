@@ -21,12 +21,10 @@ node {
 
          stage('Test application') {
            
-                  withPythonEnv('python3') {
+                
                   sh 'python --version' 
                   sh 'pip install -r requirements.txt'
-                  sh 'flask --app app run'
-                  }     
-            
+                  sh 'flask --app app run'  
         }
 
         stage('Build and push Docker Image'){
