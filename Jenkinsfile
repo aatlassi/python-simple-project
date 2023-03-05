@@ -12,7 +12,7 @@ node {
                 
                     sh 'git checkout staging'
 
-                    withCredentials([usernamePassword(credentialsId: '1a09e653-fe21-4449-a642-4f31aed8638d', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '6cbe87ef-1f79-4211-ba7d-5cfdfdedcf54', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     // sh 'git config pull.rebase false'
                    //  sh 'git pull'
                    //  sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
@@ -22,8 +22,8 @@ node {
 
          stage('Test application') {
                
-                  //sh 'python --version' 
-                  //sh 'pip --version'
+                  sh 'python --version' 
+                  sh 'pip --version'
                   sh 'pip install -r requirements.txt'
                  // sh 'python3 -m pip install flask'
                   sh 'flask --app app run'  
