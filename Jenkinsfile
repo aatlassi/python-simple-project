@@ -2,27 +2,27 @@ node {
     def app
   
         stage('Checkout') {
-            steps {
+            
                 checkout([$class: 'GitSCM',
                           branches: [[name: 'main']],
                           userRemoteConfigs: [[url: 'https://github.com/username/repo.git']]])
-            }
+        
         }
         stage('Create Staging Branch') {
-            steps {
+            
                 sh 'git checkout -b staging'
                 sh 'git push -u origin staging'
-            }
+            
         }
 
          stage('Test application') {
-            steps {
+           
                   withPythonEnv('python3') {
                   sh 'python --version' 
                   sh 'pip install -r requirements.txt'
                   sh 'flask --app app run'
                   }     
-            }
+            
         }
 
         stage('Build and push Docker Image'){
