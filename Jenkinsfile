@@ -22,6 +22,7 @@ node {
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
                     }
                 }
+         }
 
          stage('Test application') {
            
