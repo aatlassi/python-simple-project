@@ -38,14 +38,14 @@ pipeline {
 
         stage('Build and push Docker Image'){
 
-      steps { 
-          def  app= docker.build("asmagr/tp-python:${env.BUILD_NUMBER}")
-         
+        steps { 
+          script{ 
           docker.withRegistry('', 'dockerhubtp') {
             def customImage = docker.build("asmagr/tp-python:${env.BUILD_ID}")
             customImage.push()
            }
             echo "image built successfully"
+          }
         }
         }  
     } 
