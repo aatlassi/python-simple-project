@@ -37,7 +37,17 @@ pipeline {
               }
          }
 
-       
+       stage('Clone Repo') {
+            checkout scm
+          } 
+
+        stage('docker login') {
+          steps { 
+            sh 'docker login'
+            }
+         }
+
+
         stage('Build and push Docker Image'){
 
         steps { 
