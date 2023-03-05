@@ -1,6 +1,6 @@
-pipeline {
-    agent any
-    stages {
+node {
+    def app
+  
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Build and push Docker Image'){
 
-         // app= docker.build("asmagr/tp-python:${env.BUILD_NUMBER}")
+          app= docker.build("asmagr/tp-python:${env.BUILD_NUMBER}")
          
           docker.withRegistry('', 'dockerhubtp') {
             def customImage = docker.build("asmagr/tp-python:${env.BUILD_ID}")
@@ -35,9 +35,8 @@ pipeline {
            }
             echo "image built successfully"
         }
-
-       
-    }
+    
+    
 }
 
     
