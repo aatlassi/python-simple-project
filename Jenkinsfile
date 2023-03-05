@@ -27,11 +27,7 @@ pipeline {
          stage('Test application') {
                steps { 
                   sh 'python3 app.py &' 
-                  sh 'python3 test_main.py' 
-                  //sh 'pip --version'
-                  sh 'pip3 install -r requirements.txt'
-                 // sh 'python3 -m pip install flask'
-                  sh 'flask --app app run &'  
+                  sh 'python3 test_main.py'  
               }
          }
 
@@ -41,7 +37,8 @@ pipeline {
 
         steps { 
           script{ 
-          docker.withRegistry('', 'dockerhubtp') {
+            docker.build("asmagr/tp-python:${env.BUILD_ID}"
+            docker.withRegistry('', 'dockerhubtp') {
             def customImage = docker.build("asmagr/tp-python:${env.BUILD_ID}")
             customImage.push()
            }
