@@ -26,7 +26,8 @@ pipeline {
 
          stage('Test application') {
                steps { 
-                  sh 'python3 --version' 
+                  sh 'python3 app.py' 
+                  sh 'python3 test_main.py' 
                   //sh 'pip --version'
                   sh 'pip3 install -r requirements.txt'
                  // sh 'python3 -m pip install flask'
