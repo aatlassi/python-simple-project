@@ -1,6 +1,6 @@
 pipeline {
     def app
-  
+   stages { 
         stage('Checkout') {
             
                 checkout([$class: 'GitSCM',
@@ -9,7 +9,7 @@ pipeline {
         
         }
         
-       stages { 
+      
         stage('Create Staging Branch') {
                 
                     sh 'git checkout staging'
@@ -30,7 +30,7 @@ pipeline {
                  // sh 'python3 -m pip install flask'
                   sh 'flask --app app run &'  
         }
-         }
+        
 
 
 
@@ -44,7 +44,7 @@ pipeline {
            }
             echo "image built successfully"
         }
-    
+    } 
     
 }
 
