@@ -1,5 +1,11 @@
 pipeline {
    agent any
+
+   environment {
+        DOCKER_REGISTRY = "https://hub.docker.com/repository/docker/asmagr/tp-python"
+        DOCKER_IMAGE_NAME = "asmagr/tp-python"
+        DOCKER_IMAGE_TAG = "${env.BUILD_ID}"
+    }
     
    stages { 
         stage('Checkout') {
@@ -31,8 +37,13 @@ pipeline {
               }
          }
 
-
-
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def dockerImage = docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
+                }
+            }
+        }
         stage('Build and push Docker Image'){
 
         steps { 
