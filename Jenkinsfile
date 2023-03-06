@@ -12,19 +12,30 @@ pipeline {
            steps { 
                 checkout([$class: 'GitSCM',
                           branches: [[name: 'main']],
-                          userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])                
+                          userRemoteConfigs: [[url: 'https://github.com/aatlassi/tp.git']]])
          }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def dockerImage = docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}", "-f Dockerfile .")
-                }
-            }
         }
         
       
+        stage('Create Staging Branch') {
+                steps { 
+                    sh 'git checkout staging'
+
+                    withCredentials([usernamePassword(credentialsId: 'http://ec2-13-36-37-1.eu-west-3.compute.amazonaws.com:8080/manage/credentials/store/system/domain/_/credential/0732e890-71f1-42f0-9102-967a52fca931', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    // sh 'git config pull.rebase false'
+                   //  sh 'git pull'
+                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
+                       
+                   }
+                   } 
+         }
+
+         stage('Test application') {
+               steps { 
+                  sh 'python3 app.py &' 
+                  sh 'python3 test_main.py'  
+              }
+         }
 
 
         stage('Build and push Docker Image'){
@@ -32,7 +43,7 @@ pipeline {
         steps { 
           script{ 
             
-            docker.withRegistry('', '05e7f4ce-d0a6-44ac-a080-be3aba651c29') {
+            docker.withRegistry('', 'dockerhubtp') {
             def customImage = docker.build("asmagr/tp-python:${env.BUILD_ID}")
             customImage.push()
            }
