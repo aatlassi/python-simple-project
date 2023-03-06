@@ -38,10 +38,10 @@ pipeline {
                   sh 'pip install -r requirements.txt'
                   sh 'pip3 --version'
                  // sh 'pip3 install -r requirements.txt'
-                  sh 'flask --app app run'
+                  //sh 'flask --app app run'
                  // sh 'pip3 '
-                  //sh 'python3 app.py &' 
-                  //sh 'python3 test_main.py'  
+                  sh 'python3 app.py &' 
+                  sh 'python3 test_main.py'  
               }
          }
 
