@@ -21,7 +21,7 @@ pipeline {
                 steps { 
                     sh 'git checkout staging'
 
-                    withCredentials([usernamePassword(credentialsId: 'http://ec2-13-36-37-1.eu-west-3.compute.amazonaws.com:8080/manage/credentials/store/system/domain/_/credential/0732e890-71f1-42f0-9102-967a52fca931', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: '0732e890-71f1-42f0-9102-967a52fca931', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                     // sh 'git config pull.rebase false'
                    //  sh 'git pull'
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/aatlassi/tp.git')
